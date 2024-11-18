@@ -172,11 +172,11 @@ def create_link_token_for_payment():
             request
         )
         pretty_print_response(response.to_dict())
-        
+
         # We store the payment_id in memory for demo purposes - in production, store it in a secure
         # persistent data store along with the Payment metadata, such as userId.
         payment_id = response['payment_id']
-        
+
         linkRequest = LinkTokenCreateRequest(
             # The 'payment_initiation' product has to be the only element in the 'products' list.
             products=[Products('payment_initiation')],
@@ -248,7 +248,7 @@ def create_user_token():
     try:
         consumer_report_user_identity = None
         user_create_request = UserCreateRequest(
-            # Typically this will be a user ID number from your application. 
+            # Typically this will be a user ID number from your application.
             client_user_id="user_" + str(uuid.uuid4())
         )
 
@@ -341,14 +341,14 @@ def get_transactions():
             response = client.transactions_sync(request).to_dict()
             cursor = response['next_cursor']
             # If no transactions are available yet, wait and poll the endpoint.
-            # Normally, we would listen for a webhook, but the Quickstart doesn't 
-            # support webhooks. For a webhook example, see 
+            # Normally, we would listen for a webhook, but the Quickstart doesn't
+            # support webhooks. For a webhook example, see
             # https://github.com/plaid/tutorial-resources or
             # https://github.com/plaid/pattern
             if cursor == '':
                 time.sleep(2)
-                continue  
-            # If cursor is not an empty string, we got results, 
+                continue
+            # If cursor is not an empty string, we got results,
             # so add this page of results
             added.extend(response['added'])
             modified.extend(response['modified'])
@@ -522,7 +522,7 @@ def get_investments_transactions():
 
 @app.route('/api/transfer_authorize', methods=['GET'])
 def transfer_authorization():
-    global authorization_id 
+    global authorization_id
     global account_id
     request = AccountsGetRequest(access_token=access_token)
     response = client.accounts_get(request)
