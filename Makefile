@@ -16,7 +16,17 @@ up:
 	REACT_APP_API_HOST=http://$(language):8000 \
 	$(DOCKER_COMPOSE) \
 		$(DOCKER_COMPOSE_YML) \
-		$@ --build --detach --remove-orphans \
+		$@ --detach --remove-orphans \
+		$(language)
+	@echo $(SUCCESS_MESSAGE)
+
+# dont know if this is overriding the stop build command below
+.PHONY: build
+build:
+	REACT_APP_API_HOST=http://$(language):8000 \
+	$(DOCKER_COMPOSE) \
+		$(DOCKER_COMPOSE_YML) \
+		up --$@ --detach --remove-orphans \
 		$(language)
 	@echo $(SUCCESS_MESSAGE)
 
