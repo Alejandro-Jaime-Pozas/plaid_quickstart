@@ -203,7 +203,6 @@ def create_link_token_for_payment():
     except plaid.ApiException as e:
         return json.loads(e.body)
 
-
 @app.route('/api/create_link_token', methods=['POST'])
 def create_link_token():
     global user_token
